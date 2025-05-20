@@ -85,6 +85,19 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   zstyle :omz:plugins:ssh-agent ssh-add-args --apple-load-keychain
 fi
 
+
+# ------------------------------------------------------------------------------
+# Warp Terminal 
+# ------------------------------------------------------------------------------
+if [[ $TERM_PROGRAM == "WarpTerminal" ]]; then
+  ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+
+  SPACESHIP_PROMPT_ASYNC=FALSE
+
+  ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+fi
+
+
 # ------------------------------------------------------------------------------
 # Dependencies
 # ------------------------------------------------------------------------------
@@ -133,7 +146,6 @@ if ! zgen saved; then
     # Custom plugins
     zgen load chriskempson/base16-shell
     zgen load djui/alias-tips
-    zgen load marzocchi/zsh-notify
     zgen load hlissner/zsh-autopair
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-autosuggestions
@@ -200,3 +212,34 @@ if [[ -f "$HOME/.zshlocal" ]]; then
 fi
 
 # ------------------------------------------------------------------------------
+# Conda
+# ------------------------------------------------------------------------------
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/ric/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/ric/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/ric/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/ric/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba shell init' !!
+export MAMBA_EXE='/Users/ric/miniforge3/bin/mamba';
+export MAMBA_ROOT_PREFIX='/Users/ric/miniforge3';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias mamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<

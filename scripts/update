@@ -49,7 +49,7 @@ on_start() {
   info '  _ / /_/ // /_/ // /_ / __// // //  __/(__  )  '
   info ' (_)\__,_/ \____/ \__//_/  /_//_/ \___//____/   '
   info '                                                '
-  info '              by @denysdovhan                   '
+  info '              by @riccorl                   '
   info '                                                '
 }
 
@@ -97,6 +97,19 @@ update_apt() {
   finish
 }
 
+update_mamba() {
+  if ! (_exists mamba || _exists micromamba); then
+    return
+  fi
+
+  info "Updating Mamba environments and packages..."
+
+  mamba update mambda
+  mamba clean --all -y
+
+  finish
+}
+
 on_finish() {
   success "Done!"
   success "Happy Coding!"
@@ -125,7 +138,8 @@ main() {
   on_start "$*"
   update_dotfiles "$*"
   update_brew "$*"
-  update_apt_get "$*"
+  update_apt "$*"
+  update_mamba "$*"
   on_finish "$*"
 }
 
