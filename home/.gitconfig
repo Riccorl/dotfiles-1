@@ -122,3 +122,6 @@
 #   email = denysdovhan@gmail.com
 [include]
   path = ~/.gitlocal
+[user]
+	name = Riccardo
+	email = orlandoricc@gmail.com
